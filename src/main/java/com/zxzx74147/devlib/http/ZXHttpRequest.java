@@ -1,6 +1,7 @@
 package com.zxzx74147.devlib.http;
 
 
+import com.zxzx74147.devlib.log.ZXLog;
 import com.zxzx74147.utils.ZXJsonUtil;
 
 import java.io.IOException;
@@ -22,6 +23,7 @@ import static com.zxzx74147.devlib.http.ZXHttpConfig.HTTP_ERROR;
  */
 
 public class ZXHttpRequest<T> {
+    private static final String TAG = ZXHttpRequest.class.getName();
     private static HashMap<Integer, List<ZXHttpRequest>> mRequests = new HashMap<>();
 
 
@@ -90,8 +92,14 @@ public class ZXHttpRequest<T> {
         return mParams;
     }
 
+
     public ZXHttpResponse sendSync(){
+        long time= 0;
+        time = System.currentTimeMillis();
         Response rsp = ZXHttpClient.sendRequestSync(this);
+        long diff = System.currentTimeMillis()-time;
+        time = System.currentTimeMillis();
+
         if(rsp==null){
             final ZXHttpResponse<T> response = new ZXHttpResponse<T>();
             response.setRequest(ZXHttpRequest.this);
@@ -115,10 +123,12 @@ public class ZXHttpRequest<T> {
             T data = ZXJsonUtil.fromJsonString(rspString, tType);
             response.mError.errno = 200;
             response.mData = data;
-
+            long diff2 = System.currentTimeMillis()-time;
+//            ZXLog.i(TAG,"http time="+diff+"|parser time="+diff2);
             return response;
 
         }
+
     }
 
     public void send(ZXHttpCallback<T> callback) {
