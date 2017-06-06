@@ -8,7 +8,7 @@ public class GetInfoService {
     private static GetInfoExecutor mExecutor;
 
     public static void start() {
-        mExecutor = new GetInfoExecutor(10, 10);
+        mExecutor = new GetInfoExecutor(30, 10);
     }
 
     public static void stop() {
