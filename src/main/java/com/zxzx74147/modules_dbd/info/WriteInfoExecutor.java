@@ -26,7 +26,7 @@ public class WriteInfoExecutor extends BaseExecutor<DBDData, Object> {
 
     public WriteInfoExecutor(int threadNum, int bufferNum) {
         super(threadNum, bufferNum, "WriteInfoExecutor Thread");
-        BLOCK_NUM = 150;
+        BLOCK_NUM = 50;
     }
 
 

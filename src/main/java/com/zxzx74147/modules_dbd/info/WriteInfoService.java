@@ -8,7 +8,7 @@ public class WriteInfoService {
     private static WriteInfoExecutor mExecutor;
 
     public static void start() {
-        mExecutor = new WriteInfoExecutor(2, 200);
+        mExecutor = new WriteInfoExecutor(2, 100);
     }
 
     public static void stop() {

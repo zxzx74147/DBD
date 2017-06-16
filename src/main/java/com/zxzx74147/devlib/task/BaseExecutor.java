@@ -65,6 +65,9 @@ public abstract class BaseExecutor<I, O> {
     }
 
     public void addInput(I input) throws InterruptedException {
+        if(mDataQueue.contains(input)){
+            return;
+        }
         mDataQueue.put(input);
     }
 
