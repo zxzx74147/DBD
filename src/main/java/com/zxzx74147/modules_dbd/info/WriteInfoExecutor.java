@@ -5,10 +5,13 @@ import com.zxzx74147.devlib.task.BaseExecutor;
 import com.zxzx74147.devlib.utils.CloseUtil;
 import com.zxzx74147.modules_dbd.db.DBService;
 import com.zxzx74147.modules_dbd.info.data.DBDData;
+import redis.clients.jedis.Jedis;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -36,6 +39,8 @@ public class WriteInfoExecutor extends BaseExecutor<DBDData, Object> {
         Connection mConn = DBService.sharedInstance().getConnection();
         PreparedStatement ps = null;
         PreparedStatement ps_jd = null;
+        HashSet<Long> mIds = new HashSet<>();
+        Jedis mJedis = new Jedis("localhost");
         try {
             if (mCacheList.size() == 0) {
                 return null;
@@ -59,11 +64,16 @@ public class WriteInfoExecutor extends BaseExecutor<DBDData, Object> {
                     ps_jd.setString(2, data.image);
                     ps_jd.setString(3,data.item_abs);
                     ps_jd.addBatch();
+                    mIds.add(data.jd_item_id);
                 }
             }
             int[] result = ps.executeBatch();
-
             result = ps_jd.executeBatch();
+
+            for (Long id : mIds) {
+                mJedis.del("IA_"+id);
+            }
+
 //            ZXLog.i(TAG,result[0]+"");
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,6 +84,7 @@ public class WriteInfoExecutor extends BaseExecutor<DBDData, Object> {
             CloseUtil.close(ps);
             CloseUtil.close(ps_jd);
             CloseUtil.close(mConn);
+            CloseUtil.close(mJedis);
         }
         return null;
     }
