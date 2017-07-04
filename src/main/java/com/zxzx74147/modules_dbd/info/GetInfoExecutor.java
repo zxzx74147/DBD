@@ -20,6 +20,7 @@ import org.jsoup.select.Elements;
 import java.sql.Connection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 
 /**
@@ -30,6 +31,7 @@ public class GetInfoExecutor extends BaseExecutor<Integer, DBDData> {
     private static final String CHECK = "";
     private int mLastCount = 0;
     private long mLastTime;
+    private Random mRandom = new Random(System.currentTimeMillis());
 
     public GetInfoExecutor(int threadNum, int bufferNum) {
         super(threadNum, bufferNum, "GetInfoExecutor Thread");
@@ -117,9 +119,9 @@ public class GetInfoExecutor extends BaseExecutor<Integer, DBDData> {
                     request.setUrl(Config.HOST + Path.ADDRESS_INFO);
                     request.addParam("paimaiId", id);
                     request.addParam("skuId", sku);
-                    request.addParam("t", "759781");
+                    request.addParam("t", mRandom.nextInt(800000)+100000);
                     request.addParam("start", "0");
-                    request.addParam("end", "1");
+                    request.addParam("end", "2");
                     request.addParam("callback", "jQuery2986246");
                     request.addParam("_", System.currentTimeMillis());
                     HttpUtils.addHeaders(request);
