@@ -29,6 +29,9 @@ public class DBDData  implements Serializable,IData{
             if(jd_price==0){
                 return;
             }
+            if(time==0){
+                return;
+            }
             ps.setInt(1, id);
             ps.setLong(2, jd_item_id);
             ps.setString(3, item_abs==null? "":item_abs);

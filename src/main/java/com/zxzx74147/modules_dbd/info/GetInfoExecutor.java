@@ -4,6 +4,7 @@ import com.zxzx74147.devlib.http.ZXHttpRequest;
 import com.zxzx74147.devlib.http.ZXHttpResponse;
 import com.zxzx74147.devlib.task.BaseExecutor;
 import com.zxzx74147.modules_dbd.Config;
+import com.zxzx74147.modules_dbd.db.DBService;
 import com.zxzx74147.modules_dbd.info.data.BidListData;
 import com.zxzx74147.modules_dbd.info.data.DBDData;
 import com.zxzx74147.modules_dbd.info.data.PriceData;
@@ -16,6 +17,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import java.sql.Connection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -25,7 +27,7 @@ import java.util.regex.Matcher;
  */
 public class GetInfoExecutor extends BaseExecutor<Integer, DBDData> {
     private static final String TAG = GetInfoExecutor.class.getName();
-
+    private static final String CHECK = "";
     private int mLastCount = 0;
     private long mLastTime;
 
@@ -37,9 +39,12 @@ public class GetInfoExecutor extends BaseExecutor<Integer, DBDData> {
     @Override
     public List<DBDData> process(List<Integer> input) {
         List<DBDData> result = new LinkedList<>();
+        Connection mConn = DBService.sharedInstance().getConnection();
         for(Integer id:input) {
             try {
 //                ZXLog.i(TAG, "get info=" + id);
+
+
                 DBDData resultData = new DBDData();
                 resultData.id = id;
                 int sku = 0;
