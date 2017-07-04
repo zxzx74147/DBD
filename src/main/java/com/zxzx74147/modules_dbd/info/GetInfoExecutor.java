@@ -41,7 +41,7 @@ public class GetInfoExecutor extends BaseExecutor<Integer, DBDData> {
     @Override
     public List<DBDData> process(List<Integer> input) {
         List<DBDData> result = new LinkedList<>();
-        Connection mConn = DBService.sharedInstance().getConnection();
+//        Connection mConn = DBService.sharedInstance().getConnection();
         for(Integer id:input) {
             try {
 //                ZXLog.i(TAG, "get info=" + id);

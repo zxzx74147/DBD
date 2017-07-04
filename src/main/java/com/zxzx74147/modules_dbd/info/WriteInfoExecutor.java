@@ -70,8 +70,12 @@ public class WriteInfoExecutor extends BaseExecutor<DBDData, Object> {
             int[] result = ps.executeBatch();
             result = ps_jd.executeBatch();
 
-            for (Long id : mIds) {
-                mJedis.del("IA_"+id);
+            try {
+                for (Long id : mIds) {
+                    mJedis.del("IA_" + id);
+                }
+            }catch (Exception e){
+                e.printStackTrace();
             }
 
 //            ZXLog.i(TAG,result[0]+"");

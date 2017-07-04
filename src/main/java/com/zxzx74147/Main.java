@@ -79,20 +79,21 @@ public class Main {
 
             GetInfoService.getExecutor().setOutputExecutor(WriteInfoService.getExecutor());
             ApiServer.init(new ApiConfig(),new DBDApiHandler());
-//            for (int i = mStart; i >= 15453202-500; i--) {
-//                try {
-//                    GetInfoService.getExecutor().addInput(i);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            try {
-//                synchronized (mWaitObj) {
-//                    mWaitObj.wait();
-//                }
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+
+            for (int i = mStart; i >= 15453202-500; i--) {
+                try {
+                    GetInfoService.getExecutor().addInput(i);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                synchronized (mWaitObj) {
+                    mWaitObj.wait();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
     }
