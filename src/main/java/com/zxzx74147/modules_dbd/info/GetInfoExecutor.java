@@ -122,7 +122,7 @@ public class GetInfoExecutor extends BaseExecutor<Integer, DBDData> {
                     request.addParam("t", mRandom.nextInt(800000)+100000);
                     request.addParam("start", "0");
                     request.addParam("end", "2");
-                    request.addParam("callback", "jQuery2986246");
+                    request.addParam("callback", "jsonpCallBack_"+System.currentTimeMillis());
                     request.addParam("_", System.currentTimeMillis());
                     HttpUtils.addHeaders(request);
                     ZXHttpResponse<BidListData> response = request.sendSync();
