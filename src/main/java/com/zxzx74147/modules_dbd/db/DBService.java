@@ -31,10 +31,10 @@ public class DBService {
             cpds.setUser(DBConfig.DB_UNAME);
             cpds.setPassword(DBConfig.DB_PASS);
 
-            cpds.setMaxStatements(180);
+            cpds.setMaxStatements(300);
             cpds.setMinPoolSize(5);
             cpds.setAcquireIncrement(5);
-            cpds.setMaxPoolSize(15);
+            cpds.setMaxPoolSize(10);
             return true;
         } catch (PropertyVetoException e) {
             e.printStackTrace();
