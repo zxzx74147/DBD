@@ -87,6 +87,7 @@ public class Main {
 //                    e.printStackTrace();
 //                }
 //            }
+
             try {
                 synchronized (mWaitObj) {
                     mWaitObj.wait();
